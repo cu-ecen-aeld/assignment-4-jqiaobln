@@ -7,11 +7,58 @@ on:
             - '*'
 jobs:
     full-test:
-        container: cuaesd/aesd-autotest:assignment5
+        container: cuaesd/aesd-autotest:assignment4-buildroot
         runs-on: self-hosted
+        timeout-minutes: 120
         steps:
           - uses: actions/checkout@v2
           - name: Checkout submodules
-            run : git submodule update --init --recursive
+            run: git submodule update --init --recursive
+          - uses: webfactory/ssh-agent@v0.5.3
+            with:
+                ssh-private-key: ${{ -----BEGIN OPENSSH PRIVATE KEY-----
+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
+-----END OPENSSH PRIVATE KEY----- }}
           - name: Run full test
+            env:
+              GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
             run: ./full-test.sh
+          - name: Cleanup
+            if: always()
+            run: |
+              ssh-add -D
